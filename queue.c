@@ -16,6 +16,8 @@ struct __QueueInternal {
 
 queue_p queue_create(size_t item_size)
 {
+    /* FIXME: specify a proper magic number for in-memory representation.
+     */
     queue_p q = calloc(sizeof(Queue), 1);
     atomic_init(&q->head, 0);
     atomic_init(&q->tail, 0);
@@ -111,8 +113,9 @@ QueueResult queue_clear(queue_p q)
 
 QueueResult queue_destroy(queue_p q)
 {
+    /* FIXME: destroy before validating the magic number pointered by q.
+     */
     free(q);
-    q = NULL;
     return QUEUE_SUCCESS;
 }
 
