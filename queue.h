@@ -12,6 +12,9 @@ typedef enum __QueueResult {
     QUEUE_OUT_OF_MEMORY = -1,
 } QueueResult;
 
+/**
+ * \brief An unbounded lockless single consumer multiple producer FIFO Queue.
+ */
 extern struct __QUEUE_API__ {
     /** Create a new Queue object.
      * @param size the storage size in bytes.
