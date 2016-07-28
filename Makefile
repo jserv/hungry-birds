@@ -19,7 +19,7 @@ $(EXEC): $(OBJS)
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 check: $(EXEC)
-	./$(EXEC)
+	@./$(EXEC)
 
 clean:
 	$(RM) $(EXEC) $(OBJS) $(deps)
