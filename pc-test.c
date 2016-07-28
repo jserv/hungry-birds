@@ -73,6 +73,8 @@ static void test_basic_operations()
     assert(result == QUEUE_SUCCESS);
 
     assert(Queue.hasFront(q) == QUEUE_FALSE);
+
+    Queue.destroy(q);
 }
 
 #define THREAD_COUNT (1.5 * 1000 * 1000)
@@ -144,6 +146,8 @@ static void stress_test()
     }
 
     assert(Queue.hasFront(test.q) == QUEUE_FALSE);
+
+    Queue.destroy(test.q);
 }
 
 int main(int argc, char *argv[])
