@@ -4,6 +4,9 @@
 #include <string.h>
 #include "queue.h"
 
+static const size_t sentinel = 0xdeadc0de;
+static const size_t alignment = sizeof(size_t);
+
 typedef struct node {
     atomic_uintptr_t next;
 } node;
@@ -16,9 +19,9 @@ struct __QueueInternal {
 
 queue_p queue_create(size_t item_size)
 {
-    /* FIXME: specify a proper magic number for in-memory representation.
-     */
-    queue_p q = calloc(sizeof(Queue), 1);
+    size_t *ptr = calloc(sizeof(Queue) + alignment, 1);
+    ptr[0] = sentinel;
+    queue_p q = (queue_p)(ptr + 1);
     atomic_init(&q->head, 0);
     atomic_init(&q->tail, 0);
     q->item_size = item_size;
@@ -114,8 +117,8 @@ QueueResult queue_clear(queue_p q)
 
 QueueResult queue_destroy(queue_p q)
 {
-    /* FIXME: destroy before validating the magic number pointered by q.
-     */
+    size_t *ptr = (size_t*)q - 1;
+    assert(ptr[0] == sentinel);
     free(q);
     return QUEUE_SUCCESS;
 }
