@@ -119,7 +119,7 @@ QueueResult queue_destroy(queue_p q)
 {
     size_t *ptr = (size_t*)q - 1;
     assert(ptr[0] == sentinel);
-    free(q);
+    free(ptr);
     return QUEUE_SUCCESS;
 }
 
