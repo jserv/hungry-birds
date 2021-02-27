@@ -77,8 +77,8 @@ static void test_basic_operations()
     Queue.destroy(q);
 }
 
-#define THREAD_COUNT (1.5 * 1000 * 1000)
-#define PRODUCER_COUNT 7
+#define THREAD_COUNT (50 * 1.5 * 1000 * 1000)
+#define PRODUCER_COUNT 64
 
 typedef struct __QueueTest {
     atomic_int consume_count;

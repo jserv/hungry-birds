@@ -30,7 +30,7 @@ extern struct __QUEUE_API__ {
     QueueResult (*push)(queue_p, void *data);
 
     /** Check if the queue has any data.
-     * The methid is considered a consumer operation, and only one thread may
+     * The method is considered a consumer operation, and only one thread may
      * safely execute this at one time.
      * @return QUEUE_TRUE if there is a front.
      * @return QUEUE_FALSE if there is not.
