@@ -73,7 +73,7 @@ QueueResult queue_pop(queue_p q)
 	     */
             new_head = (node *) atomic_load(&popped->next);
         }
-        atomic_store(&q->head, (atomic_uintptr_t) new_head);
+        atomic_store(&q->head, (uintptr_t) new_head);
     }
 
     free(popped);
@@ -94,13 +94,13 @@ QueueResult queue_push(queue_p q, void *data)
 
     /* swap the new tail with the old */
     node *old_tail = (node *) atomic_exchange(&q->tail,
-                                              (atomic_uintptr_t) new_tail);
+                                              (uintptr_t) new_tail);
 
     /* link the old tail to the new */
     if (old_tail) {
-        atomic_store(&old_tail->next, (atomic_uintptr_t) new_tail);
+        atomic_store(&old_tail->next, (uintptr_t) new_tail);
     } else {
-        atomic_store(&q->head, (atomic_uintptr_t) new_tail);
+        atomic_store(&q->head, (uintptr_t) new_tail);
     }
     return QUEUE_SUCCESS;
 }
